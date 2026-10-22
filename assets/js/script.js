@@ -14,31 +14,60 @@ const resetBtnJs = document.querySelector('#reset');
 
 
 /* SCRIVI QUI LE TUE FUNZIONI E I TUOI LISTENER:
-   1. rendiTabellone()  — crea 90 div, evidenzia i numeri usciti
-   2. estrai()          — pesca un numero casuale tra i non usciti
+   1. rendiTabellone()  — crea 90 div, evidenzia i numeri usciti FATTO
+   2. estrai()          — pesca un numero casuale tra i non usciti FATTO
    3. rendiCronologia() — mostra gli ultimi 10 estratti
    4. Listener click su #estrai e #reset
    EXTRA: conteggio, animazione di estrazione, localStorage
 */
 
-function renditabellone() {
+//Funzione tabellone
+function rendiTabellone() {
 
   tabelloneJs.textContent = '';
 
-  for (i = 0; i >= 90; i++) {
+  for (let i = 1; i <= 90; i++) {
     const grigliaTabellone = document.createElement('div');
     grigliaTabellone.classList.add('numero');
-    div.textContent = i;
-  } if (usciti.includes(i)) {
-    div.classList.add('uscito');
+    grigliaTabellone.textContent = i;
+
+    if (usciti.includes(i)) {
+      grigliaTabellone.classList.add('uscito');
+    }
+
+    tabelloneJs.appendChild(grigliaTabellone);
+  }
+}
+
+rendiTabellone();
+
+
+
+//Funzione estrai con alert
+function estrai() {
+  //Questo è l'alert
+  if (usciti.length >= 90) {
+    alert('Tutti i numeri sono stati estratti!');
+    return;
   }
 
-  tabelloneJs.appendChild(div);
-};
-
-function estrai()  {
-      if (usciti.length >= 90) {
-        alert('Tutti i numeri sono stati estratti!');
-        return;
+  // Creazione array dei numeri ancora disponibili
+  const disponibili = [];
+  for (let i = 1; i <= 90; i++) {
+    if (!usciti.includes(i)) {
+      disponibili.push(i);
     }
-};
+  }
+
+  //Estrazione numeri
+  const indice = Math.floor(Math.random() * disponibili.length);
+  const numeroEstratto = disponibili[indice];
+
+  usciti.push(numeroEstratto);
+
+  ultimoNumeroJs.textContent = numeroEstratto;
+  cronologiaJs.textContent = usciti.join(' - ');
+
+  rendiTabellone();
+}
+
