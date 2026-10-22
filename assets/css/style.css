@@ -10,7 +10,8 @@ body {
   color: #1b2845;
 }
 
-h1, h2 {
+h1,
+h2 {
   text-align: center;
 }
 
@@ -57,4 +58,8 @@ h1, h2 {
   background: #0066cc;
   color: #ffffff;
   font-weight: bold;
+}
+
+#cronologia {
+  text-align: center;
 }
