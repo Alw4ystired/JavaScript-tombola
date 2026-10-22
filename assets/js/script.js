@@ -26,7 +26,7 @@ function rendiTabellone() {
 
   tabelloneJs.textContent = '';
 
-  for (let i = 1; i <= 90; i++) {
+  for (let i = 0; i <= 90; i++) {
     const grigliaTabellone = document.createElement('div');
     grigliaTabellone.classList.add('numero');
     grigliaTabellone.textContent = i;
@@ -43,17 +43,17 @@ rendiTabellone();
 
 
 
-//Funzione estrai con alert
+/*//Funzione estrai con alert
 function estrai() {
   //Questo è l'alert
   if (usciti.length >= 90) {
     alert('Tutti i numeri sono stati estratti!');
     return;
-  }
+  }*/
 
   // Creazione array dei numeri ancora disponibili
   const disponibili = [];
-  for (let i = 1; i <= 90; i++) {
+  for (let i = 0; i <= 90; i++) {
     if (!usciti.includes(i)) {
       disponibili.push(i);
     }
@@ -69,5 +69,64 @@ function estrai() {
   cronologiaJs.textContent = usciti.join(' - ');
 
   rendiTabellone();
+
+
+/*rendiCronologia = () => {
+    // Se non è stato estratto niente 
+    if (usciti.length === 0) {
+        cronologiaJs.textContent = 'Nessun numero estratto.';
+        return;
+    }
+
+      const ultimi10 = usciti.slice(-10).reverse; //Reverse l'ho cercato su google
+      
+    cronologiaJs.textContent = ultimi10.join(' - ');
+}*/
+
+function rendiCronologia() {
+  // Se non è stato estratto niente 
+    if (usciti.length === 0) {
+        cronologiaJs.textContent = 'Nessun numero estratto.';
+        return;
+    }
+
+    const ultimi10 = usciti.slice(-10);
+    cronologiaJs.textContent = ultimi10.join(' - ');
+};
+
+function estrai() {
+    if (usciti.length >= 90) {
+        alert('Tutti i numeri sono stati estratti!');
+        return;
+    }
+
+    const disponibili = [];
+    for (let i = 0; i <= 90; i++) {
+        if (!usciti.includes(i)) {
+            disponibili.push(i);
+        }
+    }
+
+    const indice = Math.floor(Math.random() * disponibili.length);
+    const numeroEstratto = disponibili[indice];
+
+    usciti.push(numeroEstratto);
+
+    ultimoNumeroJs.textContent = numeroEstratto;
+
+    rendiCronologia();
+    rendiTabellone();
 }
 
+function reset() {
+    usciti = [];
+    ultimoNumeroJs.textContent = '-';
+    rendiCronologia();
+    rendiTabellone();
+}
+
+estraiBtnJs.addEventListener('click', estrai);
+resetBtnJs.addEventListener('click', reset);
+
+rendiTabellone();
+rendiCronologia();
